@@ -1,7 +1,7 @@
 const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8080/api/v1"
-    : "http://localhost:4000/api/v1";
+    : "https://hrms-be-kyhx.onrender.com/api/v1";
 
 
 export const authEndpoints = {
