@@ -9,6 +9,34 @@ The HRMS Frontend is a modern React-based web application for managing human res
 - **Dashboard Analytics**: View real-time statistics including total employees, attendance counts, and today's attendance summary
 - **User Authentication**: Secure login/logout system with token-based authentication
 
+# Demo Credentials:
+ - Email: admin@example.com
+ - Password: password123
+
+
+# Login Page
+![Login Page]({855CE99F-26D9-447E-86AD-8E53A9B8CEB8}.png)
+
+# Dashboard
+![Dashboard]({BBBD5303-1654-4BE0-AED5-C984E2F1C42B}.png)
+
+# Employee 
+![Employee]({7224305B-241D-4AFB-BF48-43FCA2824E5C}.png)
+
+## Add Employee
+![alt text]({CDDC20B7-6E13-4CD8-821A-907946287842}.png)
+
+# Attendance
+![Attendance]({86BC010B-4E1D-42AA-98D9-03A17DD3E53B}.png)
+
+## Mark Attendance
+![alt text]({DEF6684A-1A42-4466-BBEB-E03DFFBD29B0}.png)
+![alt text]({B2A12C0F-B3E0-4571-A406-2F22B4325E1F}.png)
+
+## Add Filter - Date & Employee Wise
+![alt text]({6B3B50A0-8B7C-4E29-A1A7-60B8DFBB0BDB}.png)
+
+
 ### Key Features
 
 -  Employee Management (CRUD operations)
