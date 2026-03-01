@@ -1,0 +1,28 @@
+name: Deploy to AWS react app
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via ssh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu/hrms-fe
+            git pull origin master
+            docker-compose down
+            docker-compose up --build -d
+            
