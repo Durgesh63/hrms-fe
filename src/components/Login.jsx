@@ -83,8 +83,8 @@ export default function Login() {
           <p className="text-sm text-gray-600 mb-2">
             <strong>Demo Credential:</strong>
           </p>
-          <p className="text-sm text-gray-600">Email: admin@example.com</p>
-          <p className="text-sm text-gray-600">Password: password123</p>
+          <p className="text-sm text-gray-600"><b>Email:</b> admin@example.com</p>
+          <p className="text-sm text-gray-600"><b>Password:</b> password123</p>
         </div>
         <form onSubmit={formik.handleSubmit} className="space-y-6">
           {apiError && (
@@ -109,8 +109,8 @@ export default function Login() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${formik.touched.email && formik.errors.email
-                  ? "border-red-500"
-                  : "border-gray-300"
+                ? "border-red-500"
+                : "border-gray-300"
                 }`}
               placeholder="admin@example.com"
               disabled={loading || formik.isSubmitting}
@@ -136,8 +136,8 @@ export default function Login() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${formik.touched.password && formik.errors.password
-                  ? "border-red-500"
-                  : "border-gray-300"
+                ? "border-red-500"
+                : "border-gray-300"
                 }`}
               placeholder="Enter your password"
               disabled={loading || formik.isSubmitting}
