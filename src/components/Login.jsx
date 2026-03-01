@@ -54,7 +54,7 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error);
-      
+
       const errorMessage = error?.message || "Login failed. Please try again.";
       setApiError(errorMessage);
     }
@@ -78,10 +78,10 @@ export default function Login() {
           <p className="text-gray-600">Human Resource Management System</p>
         </div>
 
-{/* Demo Credentials */}
+        {/* Demo Credentials */}
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-gray-600 mb-2">
-            <strong>Demo Credentials:</strong>
+            <strong>Demo Credential:</strong>
           </p>
           <p className="text-sm text-gray-600">Email: admin@example.com</p>
           <p className="text-sm text-gray-600">Password: password123</p>
@@ -108,11 +108,10 @@ export default function Login() {
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${
-                formik.touched.email && formik.errors.email
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${formik.touched.email && formik.errors.email
                   ? "border-red-500"
                   : "border-gray-300"
-              }`}
+                }`}
               placeholder="admin@example.com"
               disabled={loading || formik.isSubmitting}
             />
@@ -136,11 +135,10 @@ export default function Login() {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${
-                formik.touched.password && formik.errors.password
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition ${formik.touched.password && formik.errors.password
                   ? "border-red-500"
                   : "border-gray-300"
-              }`}
+                }`}
               placeholder="Enter your password"
               disabled={loading || formik.isSubmitting}
             />
@@ -159,7 +157,7 @@ export default function Login() {
           </button>
         </form>
 
-        
+
       </div>
     </div>
   );
