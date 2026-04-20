@@ -14,8 +14,8 @@ jobs:
         shell: powershell
         run: |
           $desktop = "$env:USERPROFILE\Desktop"
-          $file = Join-Path $desktop "test.txt"
-          "test" | Out-File -FilePath $file -Encoding utf8
+          $file = Join-Path $desktop "durgesh.txt"
+          "Durgesh test runer" | Out-File -FilePath $file -Encoding utf8
 
       - name: Confirm file created
         shell: powershell
