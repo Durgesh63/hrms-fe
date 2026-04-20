@@ -5,9 +5,20 @@ on: [push]
 jobs:
   build:
     runs-on: self-hosted
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test
-        run: echo "Runner is working!"
+      - name: Create file and write text on Desktop
+        shell: powershell
+        run: |
+          $desktop = [Environment]::GetFolderPath("Desktop")
+          $file = "$desktop\test.txt"
+          "durgesh" | Out-File -FilePath $file -Encoding utf8
+
+      - name: Confirm file created
+        shell: powershell
+        run: |
+          $desktop = [Environment]::GetFolderPath("Desktop")
+          Get-ChildItem $desktop
