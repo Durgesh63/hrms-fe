@@ -3,7 +3,7 @@ name: Deploy to AWS react app
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   build-and-deploy:
