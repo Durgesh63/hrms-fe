@@ -1,24 +1,23 @@
-name: Test EC2 Connection
+name: Test WinRM Connection
 
 on:
-  workflow_dispatch:   # Manual trigger (better for testing)
+  workflow_dispatch:
 
 jobs:
-  test-connection:
+  winrm-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test SSH connection to EC2
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Run command on Windows EC2 via WinRM
+        uses: appleboy/winrm-action@v0.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          port: 22
+          password: ${{ secrets.EC2_PASSWORD }}
+          port: 5985
+          protocol: http
           script: |
-            echo "Connected successfully!"
-            echo "Computer Name: %COMPUTERNAME%"
-            echo "Current User: %USERNAME%"
-            echo "Current Directory:"
-            cd
-            pwd
+            echo "Connected via WinRM!"
+            hostname
+            whoami
+            dir C:\
