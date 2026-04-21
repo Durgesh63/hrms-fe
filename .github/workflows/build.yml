@@ -3,7 +3,7 @@ name: SSH to EC2 and Run Commands
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   ssh-job:
