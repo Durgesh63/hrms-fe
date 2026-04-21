@@ -1,28 +1,27 @@
-name: Test Runner
+name: SSH to EC2 and Run Commands
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: self-hosted
+  ssh-job:
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Connect to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "Connected to EC2"
 
-      - name: Debug user
-        shell: powershell
-        run: |
-          whoami
-          echo $env:USERPROFILE
-
-      - name: Create file on Desktop
-        shell: powershell
-        run: |
-          $desktop = "C:\Users\Administrator\Desktop"
-          $file = Join-Path $desktop "durgesh.txt"
-          "Durgesh test runner" | Out-File -FilePath $file -Encoding utf8
-
-      - name: Confirm file created
-        shell: powershell
-        run: |
-          Get-ChildItem "C:\Users\Administrator\Desktop"
+            powershell -Command "
+              \$desktop = 'C:\Users\Administrator\Desktop';
+              \$file = Join-Path \$desktop 'github-ssh-test.txt';
+              'File created from GitHub Actions via SSH' | Out-File -FilePath \$file -Encoding utf8;
+              Get-ChildItem \$desktop
+            "
