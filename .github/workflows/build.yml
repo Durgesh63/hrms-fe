@@ -7,18 +7,22 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Create file on Desktop with text
+      - name: Debug user
         shell: powershell
         run: |
-          $desktop = "$env:USERPROFILE\Desktop"
+          whoami
+          echo $env:USERPROFILE
+
+      - name: Create file on Desktop
+        shell: powershell
+        run: |
+          $desktop = "C:\Users\Administrator\Desktop"
           $file = Join-Path $desktop "durgesh.txt"
-          "Durgesh test runer" | Out-File -FilePath $file -Encoding utf8
+          "Durgesh test runner" | Out-File -FilePath $file -Encoding utf8
 
       - name: Confirm file created
         shell: powershell
         run: |
-          $desktop = "$env:USERPROFILE\Desktop"
-          Get-ChildItem $desktop
+          Get-ChildItem "C:\Users\Administrator\Desktop"
