@@ -1,27 +1,64 @@
-name: SSH to EC2 and Run Commands
+name: Deploy to Windows EC2
 
 on:
   push:
     branches:
-      - master
+      - master          # Change this to your target branch if different
 
 jobs:
-  ssh-job:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Connect to EC2 via SSH
-        uses: appleboy/ssh-action@v0.1.10
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: (Optional) Build step — customize for your stack
+      # Example for Node.js:
+      # - name: Install dependencies
+      #   run: npm ci
+      # - name: Build
+      #   run: npm run build
+
+      # Step 3: Copy files to Windows EC2 via SCP (SSH file copy)
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}           # Public IP of your EC2
+          username: ${{ secrets.EC2_USER }}   # e.g. Administrator
+          key: ${{ secrets.EC2_KEY }}         # Contents of your .pem file
+          port: 22
+          source: "."                             # Copy entire repo; adjust if needed (e.g. "dist/,public/")
+          target: "C:/app"                        # Destination folder on Windows EC2
+          strip_components: 0
+          overwrite: true
+
+      # Step 4: Run deployment commands on Windows EC2 via SSH
+      - name: Run deploy commands on EC2
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
+          port: 22
           script: |
-            echo "Connected to EC2"
+            cd C:\app
 
-            powershell -Command "
-              \$desktop = 'C:\Users\Administrator\Desktop';
-              \$file = Join-Path \$desktop 'github-ssh-test.txt';
-              'File created from GitHub Actions via SSH' | Out-File -FilePath \$file -Encoding utf8;
-              Get-ChildItem \$desktop
-            "
+            # ---- Customize the section below for your stack ----
+
+            # Example: Node.js app
+            # npm install --production
+            # pm2 restart app || pm2 start app.js --name "app"
+
+            # Example: .NET app (IIS restart)
+            # iisreset /restart
+
+            # Example: Python app
+            # pip install -r requirements.txt
+            # Restart-Service -Name "YourServiceName" -Force
+
+            # Example: Simple echo to confirm deployment
+            echo "Deployment complete on %COMPUTERNAME%"
+
+            # ---- End of custom section ----
