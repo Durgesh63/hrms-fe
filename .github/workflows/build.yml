@@ -1,23 +1,25 @@
-name: Test WinRM Connection
+name: Test Runner 1
 
-on:
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  winrm-test:
-    runs-on: ubuntu-latest
-
+  build:
+    name: Test on Runner 1
+    runs-on: [self-hosted, windows, server-2019, runner-1]
     steps:
-      - name: Run command on Windows EC2 via WinRM
-        uses: appleboy/winrm-action@v0.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          password: ${{ secrets.EC2_PASSWORD }}
-          port: 5985
-          protocol: http
-          script: |
-            echo "Connected via WinRM!"
-            hostname
-            whoami
-            dir C:\
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create file and write text on Desktop
+        shell: powershell
+        run: |
+          $desktop = [Environment]::GetFolderPath("Desktop")
+          $file = "$desktop\test.txt"
+          "durgesh" | Out-File -FilePath $file -Encoding utf8
+          Write-Host "File created: $file"
+
+      - name: Confirm file created
+        shell: powershell
+        run: |
+          $desktop = [Environment]::GetFolderPath("Desktop")
+          Get-ChildItem $desktop
